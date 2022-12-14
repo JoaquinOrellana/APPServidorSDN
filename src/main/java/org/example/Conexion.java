@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 
@@ -17,9 +18,15 @@ public class Conexion extends Main implements Runnable{
     public void run(){
         try {
 
+            //MACS INTERFAZ
 
+            //IPS INTERFAZ
+            String repotesisIP="10.0.0.3";
+            String recursosacademIP="10.0.0.2";
 
             System.out.print("Direccion ip user:"+cliente.getInetAddress().getHostAddress());
+
+
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
 
@@ -31,8 +38,8 @@ public class Conexion extends Main implements Runnable{
 
 
 
-                //File ficheroEnt=new File("/home/ubuntu/credenciales.txt");
-                File ficheroEnt=new File("E:\\TEST_REGISTRO_SERVIDOR\\aea\\credenciales.txt");
+                File ficheroEnt=new File("/home/ubuntu/credenciales.txt");
+                //File ficheroEnt=new File("E:\\TEST_REGISTRO_SERVIDOR\\aea\\credenciales.txt");
                 if(!ficheroEnt.exists()){
                     LOGGER.log(Level.INFO,"["+cliente.hashCode()+"] User: "+userName+"Intentos: "+intentos);
                     System.err.println("No existe el fichero de entrada especificado");
@@ -50,9 +57,20 @@ public class Conexion extends Main implements Runnable{
                         contador1 ++;
                         try{
                             if(userName.equals(linea.split(",")[0]) && password.equals(linea.split(",")[1])){
-                                System.out.print("Usuarios y contraseña correctos"+userName);
-                                LOGGER.log(Level.INFO,"["+cliente.hashCode()+"] Usuario y contraseña correcto: "+userName);
+                                System.out.println("Usuarios y contraseña correctos"+userName);
+                                //LOGGER.log(Level.INFO,"["+cliente.hashCode()+"] Usuario y contraseña correcto: "+userName);
                                 writer.println("valido");
+                                //tema de roles
+                                String roles= linea.split(",")[2];
+                                String[] roleschain=linea.split("-");
+
+                                //seteo de reglas
+                                for(int k=0;k<roleschain.length;k++){
+                                    //set regla por rol
+
+                                    System.out.println("usuario"+userName+"-rol:"+roleschain[k]);
+                                }
+                                LOGGER.log(Level.INFO,"["+cliente.hashCode()+"] Usuario y contraseña correcto: "+userName+"roles:"+ Arrays.asList(roleschain));
 
                                 break salto;
                             }else if(contador==contador1 && intentos<2){

@@ -76,8 +76,8 @@ public class Main {
         try {
 
 
-            //fileHandler=new FileHandler("/home/ubuntu/test.log");
-            fileHandler=new FileHandler("E:\\TEST_REGISTRO_SERVIDOR\\pruebita\\pruebita.log");
+            fileHandler=new FileHandler("/home/ubuntu/test.log");
+            //fileHandler=new FileHandler("E:\\TEST_REGISTRO_SERVIDOR\\pruebita\\pruebita.log");
             SimpleFormatter simpleFormatter=new SimpleFormatter();
             fileHandler.setFormatter(simpleFormatter);
 
